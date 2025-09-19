@@ -44,6 +44,13 @@ const eslintConfig = tseslint.config(
   {
     extends: [unicornPlugin.configs.recommended],
     rules: {
+      "unicorn/filename-case": [
+        "error",
+        {
+          case: "kebabCase", // デフォルトは kebab-case
+          ignore: [String.raw`^[A-Z][a-zA-Z0-9]+\.tsx?$`] // PascalCase コンポーネント例外
+        },
+      ],
       "unicorn/prevent-abbreviations": "off",
     },
   },
