@@ -48,7 +48,7 @@ const eslintConfig = tseslint.config(
         "error",
         {
           case: "kebabCase", // デフォルトは kebab-case
-          ignore: [String.raw`^[A-Z][a-zA-Z0-9]+\.tsx?$`] // PascalCase コンポーネント例外
+          ignore: [String.raw`^[A-Z][a-zA-Z0-9]+\.tsx?$`], // PascalCase コンポーネント例外
         },
       ],
       "unicorn/prevent-abbreviations": "off",

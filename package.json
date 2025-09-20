@@ -9,18 +9,25 @@
     "lint": "next lint && npx eslint . --ext .js,.jsx,.ts,.tsx,.mjs",
     "lint:fix": "next lint --fix &&  npx eslint . --ext .js,.jsx,.ts,.tsx,.mjs --fix",
     "format": "prettier --check \"**/*.{ts,tsx,js,jsx,cjs,mjs,md,json,lintstagedrc,yml,yaml}\" --cache",
-    "format:fix": "prettier --write \"**/*.{ts,tsx,js,jsx,cjs,mjs,md,json,lintstagedrc,yml,yaml}\" --cache"
+    "format:fix": "prettier --write \"**/*.{ts,tsx,js,jsx,cjs,mjs,md,json,lintstagedrc,yml,yaml}\" --cache",
+    "test": "jest",
+    "test:watch": "jest --watch"
   },
   "dependencies": {
     "next": "15.5.3",
     "react": "19.1.0",
-    "react-dom": "19.1.0"
+    "react-dom": "19.1.0",
+    "swr": "^2.3.6"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
     "@ianvs/prettier-plugin-sort-imports": "^4.7.0",
     "@tailwindcss/postcss": "^4",
+    "@testing-library/jest-dom": "^6.8.0",
+    "@testing-library/react": "^16.3.0",
+    "@testing-library/user-event": "^14.6.1",
     "@types/eslint-plugin-security": "^3.0.0",
+    "@types/jest": "^30.0.0",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
@@ -31,9 +38,14 @@
     "eslint-plugin-security": "^3.0.1",
     "eslint-plugin-unicorn": "^61.0.2",
     "eslint-plugin-unused-imports": "^4.2.0",
+    "jest": "^30.1.3",
+    "jest-environment-jsdom": "^30.1.2",
+    "jest-fetch-mock": "^3.0.3",
+    "msw": "^2.11.2",
     "prettier": "^3.6.2",
     "prettier-plugin-tailwindcss": "^0.6.14",
     "tailwindcss": "^4",
+    "ts-jest": "^29.4.4",
     "typescript": "^5",
     "typescript-eslint": "^8.44.0"
   }
