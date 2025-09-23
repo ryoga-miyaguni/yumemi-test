@@ -1,5 +1,3 @@
-// src/types/api.ts
-
 // --- 人口構成 API レスポンス ---
 export interface PopulationApiResponse {
   message: null | string
