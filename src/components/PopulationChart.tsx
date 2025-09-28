@@ -1,30 +1,45 @@
 'use client'
 
-import { usePopulationContainer } from './PopulationContainer'
+import { CartesianGrid, Legend, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts'
 
 interface Props {
-  activeTab: '年少人口' | '生産年齢人口' | '総人口' | '老年人口'
-  selectedPrefCodes: number[]
+  activeTab: string
+  series: { data: { value: number; year: number; }[]; pref: { prefCode: number; prefName: string }; }[]
 }
 
-export default function PopulationChart({ activeTab, selectedPrefCodes }: Props) {
-  const { error, loading, series } = usePopulationContainer(selectedPrefCodes, activeTab)
+export default function PopulationChart({ series }: Props) {
+  if (series.length === 0) return null
 
-  if (loading) return <p>読み込み中...</p>
-  if (error) return <p style={{ color: 'red' }}>{error}</p>
+  // X軸用に全ての年を取得（複数県でも共通にする）
+  const years = series[0].data.map((d) => d.year)
+
+  // 複数県のデータを年ごとにまとめる
+  const chartData = years.map((year, idx) => {
+    const entry: { [key: string]: number; year: number; } = { year }
+    for (const s of series) {
+      entry[s.pref.prefName] = s.data[idx]?.value ?? 0
+    }
+    return entry
+  })
 
   return (
-    <div>
-      {series.map(({ data, pref }) => (
-        <div key={pref.prefCode} style={{ marginBottom: '16px' }}>
-          <h3>{pref.prefName} ({activeTab})</h3>
-          <ul>
-            {data.map(d => (
-              <li key={d.year}>{d.year}: {d.value.toLocaleString()}</li>
-            ))}
-          </ul>
-        </div>
-      ))}
-    </div>
+    <ResponsiveContainer height={400} width="100%">
+      <LineChart data={chartData} margin={{ bottom: 5, left: 20, right: 30, top: 20 }}>
+        <CartesianGrid strokeDasharray="3 3" />
+        <XAxis dataKey="year" />
+        <YAxis />
+        <Tooltip />
+        <Legend />
+        {series.map((s) => (
+          <Line
+            dataKey={s.pref.prefName}
+            dot={false}
+            key={s.pref.prefCode}
+            stroke={`#${Math.floor(Math.random() * 16_777_215).toString(16)}`} 
+            type="monotone"
+          />
+        ))}
+      </LineChart>
+    </ResponsiveContainer>
   )
 }
