@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server'
 import { getPrefectures } from '@/lib/api-client'
 
-export async function GET() {
+export async function GET(_request: unknown) {
   try {
     const data = await getPrefectures()
     return NextResponse.json(data)

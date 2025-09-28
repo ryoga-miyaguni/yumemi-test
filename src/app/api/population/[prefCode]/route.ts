@@ -1,22 +1,19 @@
 import { NextResponse } from 'next/server'
 import { getPopulation } from '@/lib/api-client'
 
-interface Params {
-  params: {
-    prefCode: string
+export async function GET(
+  _request: unknown, // 使用しない場合は _ を付ける
+  context: { params: Promise<{ prefCode: string }> | { prefCode: string } }
+) {
+  const params = await context.params
+  const prefCode = Number(params.prefCode)
+
+  if (Number.isNaN(prefCode)) {
+    return NextResponse.json({ error: '都道府県コードが無効です' }, { status: 400 })
   }
-}
 
-export async function GET(req: Request, { params }: Params) {
   try {
-    const prefCode = Number(params.prefCode)
-    if (Number.isNaN(prefCode)) {
-      return NextResponse.json({ error: '都道府県コードが無効です' }, { status: 400 })
-    }
-
-    // JSON を変数に保持
     const populationData = await getPopulation(prefCode)
-
     return NextResponse.json(populationData)
   } catch (error) {
     return NextResponse.json(
