@@ -2,6 +2,7 @@
 
 import PrefectureCheckbox from './PrefectureCheckbox'
 import { usePrefectures } from '@/lib/hooks/use-prefectures'
+import { getRegionColor } from '@/lib/regions'
 
 interface Props {
   onChange: (selected: number[]) => void
@@ -20,9 +21,10 @@ export default function PrefectureList({ onChange, selected }: Props) {
   if (!prefectures) return null
 
   return (
-    <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+    <div className="grid grid-cols-3 gap-x-4 gap-y-2 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-7">
       {prefectures.map(pref => (
         <PrefectureCheckbox
+          color={getRegionColor(pref.prefName)}
           key={pref.prefCode}
           onChange={handleChange}
           prefecture={pref}

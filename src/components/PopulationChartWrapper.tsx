@@ -12,7 +12,7 @@ export default function PopulationChartWrapper({ activeTab, selectedPrefCodes }:
   const { error, loading, series } = usePopulationData(selectedPrefCodes, activeTab)
 
   if (loading) return <p>読み込み中...</p>
-  if (error) return <p style={{ color: 'red' }}>{error}</p>
+  if (error) return <p className="text-red-500">{error}</p>
   if (series.length === 0) return <p>データがありません</p>
 
   return (
