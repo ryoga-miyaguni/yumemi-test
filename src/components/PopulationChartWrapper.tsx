@@ -15,5 +15,9 @@ export default function PopulationChartWrapper({ activeTab, selectedPrefCodes }:
   if (error) return <p style={{ color: 'red' }}>{error}</p>
   if (series.length === 0) return <p>データがありません</p>
 
-  return <PopulationChart activeTab={activeTab} series={series} />
+  return (
+    <div className="overflow-x-auto">
+      <PopulationChart activeTab={activeTab} series={series} />
+    </div>
+  )
 }
