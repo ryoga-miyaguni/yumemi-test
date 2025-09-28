@@ -1,23 +1,24 @@
 'use client'
+
 import PrefectureCheckbox from './PrefectureCheckbox'
-import { useState } from 'react'
 import { usePrefectures } from '@/lib/hooks/use-prefectures'
 
-export default function PrefectureList() {
+interface Props {
+  onChange: (selected: number[]) => void
+  selected: number[]
+}
+
+export default function PrefectureList({ onChange, selected }: Props) {
   const { data: prefectures, error, isLoading } = usePrefectures()
-  const [selectedCodes, setSelectedCodes] = useState<number[]>([])
 
   function handleChange(prefCode: number, checked: boolean) {
-  setSelectedCodes(prev =>
-    checked ? [...prev, prefCode] : prev.filter(code => code !== prefCode)
-  )
+    onChange(checked ? [...selected, prefCode] : selected.filter(c => c !== prefCode))
   }
-
 
   if (isLoading) return <p>読み込み中...</p>
   if (error) return <p>都道府県の取得に失敗しました</p>
+  if (!prefectures) return null
 
-  if (!prefectures) return
   return (
     <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
       {prefectures.map(pref => (
@@ -25,7 +26,7 @@ export default function PrefectureList() {
           key={pref.prefCode}
           onChange={handleChange}
           prefecture={pref}
-          selected={selectedCodes.includes(pref.prefCode)}
+          selected={selected.includes(pref.prefCode)}
         />
       ))}
     </div>

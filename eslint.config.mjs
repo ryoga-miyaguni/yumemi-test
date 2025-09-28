@@ -51,7 +51,8 @@ const eslintConfig = tseslint.config(
           ignore: [String.raw`^[A-Z][a-zA-Z0-9]+\.tsx?$`], // PascalCase コンポーネント例外
         },
       ],
-      "unicorn/prevent-abbreviations": "off",
+      "unicorn/no-null": "off",
+      "unicorn/prevent-abbreviations": "off", 
     },
   },
 

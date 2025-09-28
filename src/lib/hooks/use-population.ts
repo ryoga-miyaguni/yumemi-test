@@ -3,7 +3,6 @@
 import useSWR from 'swr'
 import { type PopulationApiResponse } from '@/types/api'
 
-// カスタムフック本体
 export function usePopulation(prefCode?: number) {
   const shouldFetch = prefCode !== undefined
 
